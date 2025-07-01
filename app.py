@@ -44,10 +44,9 @@ def build_faiss_index(texts):
     return index, embeddings
 
 ## Retrieval
-def retrieve(query, index, df, top_k):
+def retrieve(query, index, df, top_k = None):
     query_embedding = embedding_model.encode([query], convert_to_numpy=True).astype('float32')
-    distances, indices = index.search(query_embedding, top_k = None)
-    return df.iloc[indices[0]]
+    return df
 
 ## LLM - Generate Answer (Enhanced for DeepSeek & OpenAI)
 def generate_answer(query, context, api_key, provider, model_name):
@@ -218,11 +217,6 @@ if uploaded_file:
             st.warning("Silakan pilih minimal satu kolom.")
             st.stop()
 
-        # @Albert penyakitnya ini disini, kalau head 5 berarti kasih 5 row aja dari DataFramenya
-        # Lo bisa ganti jadi kek gini kalau mau semuanya muncul >> st.dataframe(df[selected_columns])
-        # Atau gak bisa juga tambahin interaksi kek gini aja pake slidernya streamlit
-        # num_rows = st.slider("Berapa baris yang mau ditampilkan?", 5, min(100, len(df)), 5)
-        # st.dataframe(df[selected_columns].head(num_rows)) 
         st.write(f"Total baris: {len(df)}")    
         st.dataframe(df[selected_columns]) 
         df = transform_data(df, selected_columns)
