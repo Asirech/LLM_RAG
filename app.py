@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import faiss
-import numpy as np #@Albert buang aja, gak kepake
+import numpy as np 
 from openai import OpenAI
 import time
 
@@ -96,9 +96,6 @@ def generate_answer(query, context, api_key, provider, model_name):
     )
     return response.choices[0].message.content.strip()
 
-#def transform_data(df, selected_columns):
-    #df["text"] = df[selected_columns].astype(str).agg(" | ".join, axis=1)
-    #return df
 def transform_data(df, selected_columns):
     # Reset indeks untuk menghindari konflik
     df_reset = df.reset_index(drop=True)
