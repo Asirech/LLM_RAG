@@ -44,9 +44,9 @@ def build_faiss_index(texts):
     return index, embeddings
 
 ## Retrieval
-def retrieve(query, index, df):
+def retrieve(query, index, df, top_k =None):
     query_embedding = embedding_model.encode([query], convert_to_numpy=True).astype('float32')
-    distances, indices = index.search(query_embedding)
+    distances, indices = index.search(query_embedding, top_k)
     return df.iloc[indices[0]]
 
 ## LLM - Generate Answer (Enhanced for DeepSeek & OpenAI)
