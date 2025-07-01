@@ -111,7 +111,7 @@ def transform_data(df, selected_columns):
 
 # ----------------- UI -----------------
 st.set_page_config(
-    page_title="DeepSeek RAG Assistant",
+    page_title="DeepSeek Openai RAG Assistant",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -128,7 +128,7 @@ st.markdown("""
 ">
     <h1 style='text-align: center; margin: 0;'>DeepSeek RAG Assistant</h1>
     <p style='text-align: center; font-size: 1.2rem;'>
-        Analisis Data dengan Model DeepSeek-Chat & DeepSeek-Reasoner
+        Analisis Data dengan Model DeepSeek & Openai
     </p>
 </div>
 """, unsafe_allow_html=True)
