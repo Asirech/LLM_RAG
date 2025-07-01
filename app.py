@@ -126,7 +126,7 @@ st.markdown("""
     color: white;
     margin-bottom: 2rem;
 ">
-    <h1 style='text-align: center; margin: 0;'>DeepSeek RAG Assistant</h1>
+    <h1 style='text-align: center; margin: 0;'>DeepSeek & Openai RAG Assistant</h1>
     <p style='text-align: center; font-size: 1.2rem;'>
         Analisis Data dengan Model DeepSeek & Openai
     </p>
