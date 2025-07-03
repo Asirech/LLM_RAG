@@ -44,9 +44,13 @@ def build_faiss_index(texts):
     return index, embeddings
 
 ## Retrieval
-def retrieve(query, index, df, top_k = None):
-    query_embedding = embedding_model.encode([query], convert_to_numpy=True).astype('float32')
-    return df
+#def retrieve(query, index, df, top_k = 5):
+ #   query_embedding = embedding_model.encode([query], convert_to_numpy=True).astype('float32')
+  #  distances, indices = index.search(query_embedding, top_k )
+   # return df.iloc[indices[0]]
+
+def retrieve(query, index, df, top_k=None):
+    return df  
 
 ## LLM - Generate Answer (Enhanced for DeepSeek & OpenAI)
 def generate_answer(query, context, api_key, provider, model_name):
@@ -96,6 +100,7 @@ def generate_answer(query, context, api_key, provider, model_name):
     )
     return response.choices[0].message.content.strip()
 
+
 def transform_data(df, selected_columns):
     # Reset indeks untuk menghindari konflik
     df_reset = df.reset_index(drop=True)
@@ -111,7 +116,7 @@ def transform_data(df, selected_columns):
 
 # ----------------- UI -----------------
 st.set_page_config(
-    page_title="DeepSeek Openai RAG Assistant",
+    page_title="DeepSeek RAG Assistant",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -126,9 +131,9 @@ st.markdown("""
     color: white;
     margin-bottom: 2rem;
 ">
-    <h1 style='text-align: center; margin: 0;'>DeepSeek & Openai RAG Assistant</h1>
+    <h1 style='text-align: center; margin: 0;'>DeepSeek RAG Assistant</h1>
     <p style='text-align: center; font-size: 1.2rem;'>
-        Analisis Data dengan Model DeepSeek & Openai
+        Analisis Data dengan Model DeepSeek-Chat & DeepSeek-Reasoner
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -214,8 +219,10 @@ if uploaded_file:
             st.warning("Silakan pilih minimal satu kolom.")
             st.stop()
 
-        st.write(f"Total baris: {len(df)}")    
-        st.dataframe(df[selected_columns]) 
+        st.write(f"Total baris: {len(df)}") 
+        num_rows = st.slider("Berapa baris yang mau ditampilkan?", 5, min(100, len(df)), 5)   
+        #st.dataframe(df[selected_columns])
+        st.dataframe(df[selected_columns].head(num_rows))  
         df = transform_data(df, selected_columns)
         
         # Query input
@@ -389,4 +396,6 @@ else:
 # Footer (selalu muncul di bawah)
 st.divider()
 st.caption("DeepSeek RAG Assistant • Dibangun dengan Streamlit • Support DeepSeek-Chat & DeepSeek-Reasoner • v1.0")
+
+
 
